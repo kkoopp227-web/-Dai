@@ -1,0 +1,29 @@
+{
+  "1541409816201793546": {
+    "autoRole": "1548148497809805353",
+    "welcomeChannel": "1549177616827945020",
+    "welcomeConfig": {
+      "text": {
+        "main": "Welcome to the server",
+        "sub": "{member}",
+        "inviter": "invited by",
+        "align": "left",
+        "x": 360,
+        "y": 170,
+        "color": "#ffffff"
+      },
+      "avatar": {
+        "size": 200
+      },
+      "background": {
+        "type": "image",
+        "color1": "#3b82f6",
+        "color2": "#1e1b4b",
+        "solid": "#2b2d31",
+        "imageUrl": "https://cdn.discordapp.com/attachments/1548161124380319774/1549171993016799352/6afbb013c7caa86d36bef0f762a08968.jpg?ex=6aa9ba59&is=6aa868d9&hm=bc89da09e3f28e4cc7f990df6417f323e77638de4631ed522e68b7539aaa9b0f&"
+      }
+    },
+    "boostChannel": "1548161162766721086",
+    "logChannel": "1548161195771568158"
+  }
+}
