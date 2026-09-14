@@ -224,4 +224,14 @@ client.on('error', (e) => console.error('Client Error:', e.message));
 process.on('unhandledRejection', (err) => console.error('Unhandled Rejection:', err));
 process.on('uncaughtException', (err) => console.error('Uncaught Exception:', err));
 
+if (process.env.PORT) {
+  const http = require('http');
+  http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('bot is running');
+  }).listen(process.env.PORT, () => {
+    console.log(`الخادم الصحي شغال على المنفذ ${process.env.PORT}`);
+  });
+}
+
 client.login(config.token);
