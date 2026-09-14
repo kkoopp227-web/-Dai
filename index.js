@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('./config');
 const { createWelcomeCard } = require('./welcomeCard');
+const storage = require('./storage');
 
 const client = new Client({
   intents: [
@@ -14,6 +15,12 @@ const client = new Client({
 
 client.commands = new Collection();
 
+const loadDB = storage.loadDB;
+const saveDB = storage.saveDB;
+
+client.loadDB = loadDB;
+client.saveDB = saveDB;
+
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
@@ -24,23 +31,6 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
   }
 }
-
-const DB_PATH = path.join(__dirname, 'data.json');
-
-function loadDB() {
-  if (!fs.existsSync(DB_PATH)) {
-    fs.writeFileSync(DB_PATH, JSON.stringify({}));
-    return {};
-  }
-  return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
-}
-
-function saveDB(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}
-
-client.loadDB = loadDB;
-client.saveDB = saveDB;
 
 const inviteCache = new Map();
 client.inviteCache = inviteCache;
@@ -224,14 +214,18 @@ client.on('error', (e) => console.error('Client Error:', e.message));
 process.on('unhandledRejection', (err) => console.error('Unhandled Rejection:', err));
 process.on('uncaughtException', (err) => console.error('Uncaught Exception:', err));
 
-if (process.env.PORT) {
-  const http = require('http');
-  http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-    res.end('bot is running');
-  }).listen(process.env.PORT, () => {
-    console.log(`الخادم الصحي شغال على المنفذ ${process.env.PORT}`);
-  });
-}
+(async () => {
+  await storage.init();
 
-client.login(config.token);
+  if (process.env.PORT) {
+    const http = require('http');
+    http.createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('bot is running');
+    }).listen(process.env.PORT, () => {
+      console.log(`الخادم الصحي شغال على المنفذ ${process.env.PORT}`);
+    });
+  }
+
+  client.login(config.token);
+})();

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+﻿const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,7 +15,7 @@ module.exports = {
     }
 
     db[interaction.guild.id] = {};
-    client.saveDB(db);
+    await client.saveDB(db).catch(() => {});
 
     await interaction.reply({
       content: 'تم مسح جميع الإعدادات بنجاح.',

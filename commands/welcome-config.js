@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
+﻿const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const { createWelcomeCard, DEFAULT_SETTINGS } = require('../welcomeCard');
 
 module.exports = {
@@ -135,14 +135,14 @@ module.exports = {
           const text = interaction.options.getString('text');
           if (text.toLowerCase() === 'none') {
             config.text.inviter = '';
-            await interaction.reply({ content: '✅ تم إخفاء سطر الداعم.', flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: '✅ تم إخفاء سطر الداعي.', flags: MessageFlags.Ephemeral });
           } else {
             config.text.inviter = text;
-            await interaction.reply({ content: `✅ تم تغيير سطر الداعم إلى:\n**${text}**${embedContext()}`, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: `✅ تم تغيير سطر الداعي إلى:\n**${text}**${embedContext()}`, flags: MessageFlags.Ephemeral });
           }
           break;
         }
-case 'server-line': {
+        case 'server-line': {
           const text = interaction.options.getString('text');
           if (text.toLowerCase() === 'none') {
             config.text.server = '';
@@ -228,6 +228,6 @@ case 'server-line': {
       await interaction.reply({ content: `⚠️ حدث خطأ: ${err.message}`, flags: MessageFlags.Ephemeral });
     }
 
-    client.saveDB(db);
+    await client.saveDB(db).catch(() => {});
   },
 };

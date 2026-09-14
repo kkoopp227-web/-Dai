@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+﻿const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
 
     if (!db[interaction.guild.id]) db[interaction.guild.id] = {};
     db[interaction.guild.id].welcomeChannel = channel.id;
-    client.saveDB(db);
+    await client.saveDB(db).catch(() => {});
 
     await interaction.reply({
       content: `تم تحديد شات الترحيب إلى: ${channel}`,

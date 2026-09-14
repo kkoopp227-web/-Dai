@@ -1,9 +1,9 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+﻿const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('set-boost')
-    .setDescription('تحديد شات رسائل ترقية السيرفر')
+    .setDescription('تحديد شات رسائل الترقية (Boost)')
     .addChannelOption(option =>
       option.setName('channel')
         .setDescription('اختر شات الترقية')
@@ -17,7 +17,7 @@ module.exports = {
 
     if (!db[interaction.guild.id]) db[interaction.guild.id] = {};
     db[interaction.guild.id].boostChannel = channel.id;
-    client.saveDB(db);
+    await client.saveDB(db).catch(() => {});
 
     await interaction.reply({
       content: `تم تحديد شات الترقية إلى: ${channel}`,

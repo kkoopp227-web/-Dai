@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@napi-rs/canvas": "^1.0.9",
-    "discord.js": "^14.14.1"
+    "discord.js": "^14.14.1",
+    "mongodb": "^7.6.0"
   }
 }
