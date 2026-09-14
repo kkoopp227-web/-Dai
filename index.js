@@ -80,10 +80,13 @@ client.on('guildMemberAdd', async (member) => {
   const db = loadDB();
   const guildData = db[member.guild.id] || {};
 
+  const autoRoleId = config.autoRole || guildData.autoRole;
+  const welcomeChannelId = config.welcomeChannel || guildData.welcomeChannel;
+
   // Auto Role
-  if (guildData.autoRole) {
+  if (autoRoleId) {
     try {
-      const role = member.guild.roles.cache.get(guildData.autoRole);
+      const role = member.guild.roles.cache.get(autoRoleId);
       if (role) {
         await member.roles.add(role);
       }
@@ -93,9 +96,9 @@ client.on('guildMemberAdd', async (member) => {
   }
 
   // Welcome Message
-  if (guildData.welcomeChannel) {
+  if (welcomeChannelId) {
     try {
-      const channel = member.guild.channels.cache.get(guildData.welcomeChannel);
+      const channel = member.guild.channels.cache.get(welcomeChannelId);
       if (!channel) return;
 
       let inviter = null;
@@ -134,9 +137,11 @@ client.on('guildMemberRemove', async (member) => {
   const db = loadDB();
   const guildData = db[member.guild.id] || {};
 
-  if (guildData.logChannel) {
+  const logChannelId = config.logChannel || guildData.logChannel;
+
+  if (logChannelId) {
     try {
-      const channel = member.guild.channels.cache.get(guildData.logChannel);
+      const channel = member.guild.channels.cache.get(logChannelId);
       if (!channel) return;
 
       const embed = new EmbedBuilder()
@@ -164,9 +169,11 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
     const db = loadDB();
     const guildData = db[newMember.guild.id] || {};
 
-    if (guildData.boostChannel) {
+    const boostChannelId = config.boostChannel || guildData.boostChannel;
+
+    if (boostChannelId) {
       try {
-        const channel = newMember.guild.channels.cache.get(guildData.boostChannel);
+        const channel = newMember.guild.channels.cache.get(boostChannelId);
         if (!channel) return;
 
         const embed = new EmbedBuilder()

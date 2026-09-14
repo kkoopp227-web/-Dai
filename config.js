@@ -11,4 +11,8 @@ module.exports = {
   guildId: process.env.DISCORD_GUILD_ID || fileCfg.guildId,
   commandChannel: process.env.COMMAND_CHANNEL || fileCfg.commandChannel,
   allowedRole: process.env.ALLOWED_ROLE || fileCfg.allowedRole,
+  welcomeChannel: process.env.WELCOME_CHANNEL || fileCfg.welcomeChannel,
+  boostChannel: process.env.BOOST_CHANNEL || fileCfg.boostChannel,
+  logChannel: process.env.LOG_CHANNEL || fileCfg.logChannel,
+  autoRole: process.env.AUTO_ROLE || fileCfg.autoRole,
 };
