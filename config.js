@@ -15,4 +15,5 @@ module.exports = {
   boostChannel: process.env.BOOST_CHANNEL || fileCfg.boostChannel,
   logChannel: process.env.LOG_CHANNEL || fileCfg.logChannel,
   autoRole: process.env.AUTO_ROLE || fileCfg.autoRole,
+  mongoUri: process.env.MONGO_URI || fileCfg.mongoUri,
 };
