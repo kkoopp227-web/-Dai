@@ -160,6 +160,18 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
     const guildData = db[newMember.guild.id] || {};
 
     const boostChannelId = config.boostChannel || guildData.boostChannel;
+    const boostRoleId = config.boostRole || guildData.boostRole;
+
+    if (boostRoleId) {
+      try {
+        const role = newMember.guild.roles.cache.get(boostRoleId);
+        if (role && !newMember.roles.cache.has(boostRoleId)) {
+          await newMember.roles.add(role);
+        }
+      } catch (err) {
+        console.log(`فشل إعطاء رول الترقية: ${err.message}`);
+      }
+    }
 
     if (boostChannelId) {
       try {
